@@ -1,0 +1,17 @@
+{% macro pager(data) %}
+{% if data.total != 0 %}
+<div class="pager_block">
+    <div class="pager">
+        <ul class="pager_list">
+            {% for number in range(data.pagination.numbers(current=data.pagination.page).start, data.pagination.numbers(current=data.pagination.page).end) %}
+            {% if number == data.pagination.page %}
+            <li class="current"><span>{{ number }}</span></li>
+            {% else %}
+            <li><a href="{{ data.pagination.slug }}{{ number }}">{{ number }}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% endmacro %}

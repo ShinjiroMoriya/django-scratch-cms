@@ -1,0 +1,44 @@
+{% extends "parts/layout.html" %}
+{% block style %}
+<script src="/assets/lib/tinymce/js/tinymce/tinymce.min.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <main class="content">
+        <h2 class="page_title">編集</h2>
+        <form method="POST">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <table class="table">
+                <tr>
+                    <th>タイトル</th>
+                    <td>
+                        <input type="text" name="title" class="input_text" placeholder="入力してください" value="{% if data.form_data['title'] %}{{ data.form_data['title'] }}{% else %}{{ data.post.title }}{% endif %}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>公開日時</th>
+                    <td>
+                        <input type="text" name="publish_date" class="input_text" value="{% if data.form_data['publish_date'] %}{{ data.form_data['publish_date'] }}{% else %}{{ data.post.publish_date|datetime(fmt='%Y-%m-%d %H:%M') }}{% endif %}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>本文</th>
+                    <td>
+                        <textarea id="tinymce_textarea" name="contents" class="input_textarea">{% if data.form_data['contents'] %}{{ data.form_data['contents'] }}{% else %}{{ data.post.contents }}{% endif %}</textarea>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="下書き保存する" class="button_1">
+        </form>
+        <from action="/post/delete/{{data.post.post_id}}" class="bottom_form">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <input type="submit" value="削除する" class="button_2">
+        </from>
+        <form id="image_upload" method="POST" enctype="multipart/form-data">
+            <input name="image_file" type="file" class="upload" id="upload" accept="image/*">
+        </form>
+    </main>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "parts/layout.html" %}
+{% block style %}
+{% endblock %}
+{% block body %}
+<div class="login_container">
+    <form method="POST">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="next" value="">
+        <table class="table">
+            <tr>
+                <th>ユーザー名</th>
+                <td>
+                    <input name="username" type="text" class="input_text" maxlength="254" required>
+                </td>
+            </tr>
+            <tr>
+                <th>パスワード</th>
+                <td>
+                    <input name="password" type="password" class="input_text" required>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="ログイン" class="button_1">
+    </form>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

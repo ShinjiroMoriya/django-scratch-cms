@@ -1,0 +1,53 @@
+{% extends "parts/layout.html" %}
+{% block body %}
+<div class="container">
+    <main class="content">
+        <table class="table">
+            <tr>
+                <td class="table_image">サムネイル</td>
+                <td class="table_image_title">タイトル</td>
+                <td class="table_status">使用状況</td>
+                <td class="table_delete">&nbsp;</td>
+            </tr>
+            {% for np in data.post_pdfs %}
+            <tr>
+                <td>
+                    <a href="{{np.pdf_url}}" target="_blank">
+                        <img src="{{np.pdf_url|pdf_to_png}}" alt="">
+                    </a>
+                </td>
+                <td><a href="{{np.pdf_url}}" target="_blank" class="a_link">{{np.title}}</a></td>
+                <td>
+                    <ul class="list">
+                        {% for un in np.post_pdf.all() %}
+                        <li>
+                            <a href="/post/edit/{{un.post_id}}" class="a_link">{{un.title}}</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <p>使用していません</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    {% if np.post_pdf.all().count() == 0 %}
+                    <p class="link_button">
+                        <a href="/post/pdf/delete/{{np.pdf_id}}">削除</a>
+                    </p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% if data.post_pdfs %}
+        {{ pager(data) }}
+        {% if data.post_pdfs %}
+        <p class="data_page_text">{{ data.pageinformation }}</p>
+        {% endif %}
+        {% endif %}
+    </main>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}
