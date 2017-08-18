@@ -253,7 +253,7 @@ class PostIndex(View):
                    paginate.offset + paginate.per_page]
 
         data = {
-            'title': 'ニュース一覧',
+            'title': '一覧',
             'post': post,
             'pageinformation': pageinformation,
             'pagination': paginate,
