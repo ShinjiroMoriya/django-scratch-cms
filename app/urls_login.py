@@ -8,6 +8,7 @@ router.register(r'api/pdf', PostPdfAPIView)
 
 urlpatterns = [
     url(r'^$', PostTop.as_view()),
+    url(r'post_(?P<post_id>[\w\-]+)$', PostDetail.as_view()),
     url(r'post$', PostIndex.as_view()),
     url(r'post/page/(?P<page>[0-9]+)$', PostIndex.as_view()),
     url(r'post/create$', PostCreate.as_view()),

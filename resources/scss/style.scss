@@ -331,15 +331,20 @@
     {
         list-style: none;
         border-bottom: 1px solid #ddd;
-        margin: 0 0 10px 0;
+        font-size: 14px;
+        line-height: 1.8;
+        a
+        {
+            padding: 10px;
+            display: block;
+        }
     }
 }
 .contents_title
 {
-    padding: 10px;
     margin: 0;
-    border-bottom: 1px dotted #ddd;
-    font-size: 14px;
+    padding: 10px 10px 0 10px;
+    font-size: 18px;
     line-height: 1.8;
 }
 .contents_text
@@ -350,5 +355,13 @@
         font-size: 14px;
         line-height: 1.8;
         margin: 10px 0;
+    }
+    a
+    {
+        color: #459AB3;
+        &:hover
+        {
+            text-decoration: underline;
+        }
     }
 }

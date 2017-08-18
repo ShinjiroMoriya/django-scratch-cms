@@ -8,6 +8,8 @@ from jinja2 import Markup
 from django.contrib.messages import get_messages
 from django.conf import settings
 from datetime import datetime
+from bs4 import BeautifulSoup
+from urllib.request import urlopen, Request
 
 
 def calc_time(message='', parser=None):
@@ -202,6 +204,35 @@ def get_pdf_url_content(contents):
         except:
             pass
     return pdf_url
+
+
+def get_url_content(contents):
+    url = []
+    pattern_url = re.compile('(https?://[\w/:%#$&?()~.=+\-]+)')
+    urls = pattern_url.findall(contents)
+    for i in urls:
+        try:
+            m = pattern_url.search(i)
+            url.append(m.group(1))
+        except:
+            pass
+    return list(set(urls))
+
+
+def get_url_title(url):
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) '
+                          'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'
+                          '59.0.3071.115 Safari/537.36'
+        }
+        req = Request(url, headers=headers)
+        html = urlopen(req)
+        soup = BeautifulSoup(html, 'html.parser')
+        return soup.title.string
+
+    except:
+        return None
 
 
 def multiple_replace(text, adict):

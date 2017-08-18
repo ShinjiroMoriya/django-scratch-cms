@@ -15,7 +15,7 @@ from api.cloudinary import set_image_upload, set_pdf_upload, delete_resources
 from api.logger import logger
 from api.services import (get_error_message, Pagination, page_information,
                           date_format, string_to_date, session_delete,
-                          get_image_url_content, get_pdf_url_content)
+                          get_image_url_content, get_pdf_url_content,)
 
 
 class PostResultsSetPagination(pagination.PageNumberPagination):
@@ -492,6 +492,19 @@ class PostTop(GenericAPIView, PostSetup):
             'post': Post.get_published(),
         })
         return render(request, 'top.html', {'data': self.data})
+
+
+class PostDetail(GenericAPIView, PostSetup):
+    def get(self, request, post_id):
+        post = Post.get_by_id(post_id)
+        if post is None:
+            raise Http404
+
+        self.data.update({
+            'title': post.title,
+            'post': post,
+        })
+        return render(request, 'detail.html', {'data': self.data})
 
 
 class AppricationError(View):

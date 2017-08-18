@@ -1,6 +1,6 @@
 from jinja2 import Environment
 from datetime import datetime
-from api.services import multiple_replace
+from api.services import multiple_replace, get_url_content, get_url_title
 
 
 def _limit_text(value, num, dot=False):
@@ -51,6 +51,17 @@ def _filter_datetime(date, fmt='%Y-%m-%d %H:%M'):
     return date.strftime(fmt)
 
 
+def _get_url(contents):
+    html = contents
+    urls = get_url_content(contents)
+    for u in urls:
+        title = get_url_title(u)
+        if title is not None:
+            html = html + ('<p><a href="' + u +
+                           '" target="_blank">' + title + '</a></p>')
+    return html
+
+
 def environment(**options):
     env = Environment(**options)
     env.globals.update({
@@ -60,5 +71,6 @@ def environment(**options):
         'datetime': _filter_datetime,
         'pdf_to_png': _pdf_to_png,
         'img_to_thumbnail': _img_to_thumbnail,
+        'get_url': _get_url,
     })
     return env
