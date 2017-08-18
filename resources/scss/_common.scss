@@ -78,9 +78,18 @@ a
 
     color: inherit;
 }
-input[type=submit] {
+input[type=submit],
+input[type=button]
+{
+    border-radius: 0;
+    -webkit-box-sizing: content-box;
+    -webkit-appearance: button;
+    appearance: button;
+    border: none;
+    box-sizing: border-box;
     cursor: pointer;
 }
+
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #fff inset;
 }
