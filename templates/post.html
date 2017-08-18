@@ -6,36 +6,39 @@
 <div class="header_status"><p class="header_status_text"></p></div>
 <div class="container">
     <main class="content">
-        <table class="table">
-            <tr>
-                <td class="table_title">タイトル</td>
-                <td class="table_date">公開日時</td>
-                <td class="table_status">公開ステータス</td>
-                <td class="table_preview">プレビュー</td>
-            </tr>
-            {% for n in data.post %}
-            <tr>
-                <td>
-                    <p class="link_text text_hidden">
-                        <a href="/post/edit/{{n.post_id}}">{{n.title}}</a>
-                    </p>
-                </td>
-                <td>{{n.publish_date|datetime(fmt='%Y年%m月%d日 %H:%M')}}</td>
-                <td>
-                    <select name="status" class="status_select input_select" data-post_id="{{n.post_id}}">
-                        <option value="draft"{% if n.status == 'draft' %} selected{% endif %}>下書き</option>
-                        <option value="private"{% if n.status == 'private' %} selected{% endif %}>非公開</option>
-                        <option value="publish"{% if n.status == 'publish' %} selected{% endif %}>公開</option>
-                    </select>
-                </td>
-                <td>
-                    <p class="link_button">
-                        <a href="/post/preview/{{n.post_id}}" target="_blank">プレビュー</a>
-                    </p>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+        <h2 class="page_title">一覧</h2>
+        <div class="table_content">
+            <table class="table">
+                <tr>
+                    <td class="table_title">タイトル</td>
+                    <td class="table_date">公開日時</td>
+                    <td class="table_status">公開ステータス</td>
+                    <td class="table_preview">プレビュー</td>
+                </tr>
+                {% for n in data.post %}
+                <tr>
+                    <td>
+                        <p class="link_text text_hidden">
+                            <a href="/post/edit/{{n.post_id}}">{{n.title}}</a>
+                        </p>
+                    </td>
+                    <td>{{n.publish_date|datetime(fmt='%Y年%m月%d日 %H:%M')}}</td>
+                    <td>
+                        <select name="status" class="status_select input_select" data-post_id="{{n.post_id}}">
+                            <option value="draft"{% if n.status == 'draft' %} selected{% endif %}>下書き</option>
+                            <option value="private"{% if n.status == 'private' %} selected{% endif %}>非公開</option>
+                            <option value="publish"{% if n.status == 'publish' %} selected{% endif %}>公開</option>
+                        </select>
+                    </td>
+                    <td>
+                        <p class="link_button">
+                            <a href="/post/preview/{{n.post_id}}" target="_blank">プレビュー</a>
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
         {% if data.post %}
         {{ pager(data) }}
         {% if data.post %}

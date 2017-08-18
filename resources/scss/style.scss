@@ -54,6 +54,11 @@
 {
     padding: 40px 20px;
 }
+.table_content
+{
+    overflow: auto;
+    white-space: nowrap;
+}
 .table
 {
     table-layout: fixed;
@@ -71,7 +76,22 @@
         width: 200px;
         font-size: 16px;
         line-height: 1.5;
+        &.login_th
+        {
+            width: 100px;
+        }
+        &.sp_none
+        {
+            @include mediaQuery(767)
+            {
+                display: none;
+            }
+        }
     }
+}
+.table_title
+{
+    width: 200px;
 }
 .table_date
 {

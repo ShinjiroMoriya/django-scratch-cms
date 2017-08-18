@@ -5,44 +5,46 @@
 {% block body %}
 <div class="container">
     <main class="content">
-        <table class="table">
-            <tr>
-                <td class="table_image">画像</td>
-                <td class="table_image_title">タイトル</td>
-                <td class="table_status">使用状況</td>
-                <td class="table_delete">&nbsp;</td>
-            </tr>
-            {% for ni in data.post_images %}
-            <tr>
-                <td>
-                    <a href="{{ni.image_url}}" data-lity>
-                        <img src="{{ni.image_url|img_to_thumbnail}}" alt="">
-                    </a>
-                </td>
-                <td><a href="{{ni.image_url}}" data-lity class="a_link">{{ni.title}}</a></td>
-                <td>
-                    <ul class="list">
-                        {% for un in ni.post_image.all() %}
-                        <li>
-                            <a href="/post/edit/{{un.post_id}}" class="a_link" target="_blank">{{un.title}}</a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <p>使用していません</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </td>
-                <td>
-                    {% if ni.post_image.all().count() == 0 %}
-                    <p class="link_button">
-                        <a href="/post/image/delete/{{ni.image_id}}">削除</a>
-                    </p>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+        <div class="table_content">
+            <table class="table">
+                <tr>
+                    <td class="table_image">画像</td>
+                    <td class="table_image_title">タイトル</td>
+                    <td class="table_status">使用状況</td>
+                    <td class="table_delete">&nbsp;</td>
+                </tr>
+                {% for ni in data.post_images %}
+                <tr>
+                    <td>
+                        <a href="{{ni.image_url}}" data-lity>
+                            <img src="{{ni.image_url|img_to_thumbnail}}" alt="">
+                        </a>
+                    </td>
+                    <td><a href="{{ni.image_url}}" data-lity class="a_link">{{ni.title}}</a></td>
+                    <td>
+                        <ul class="list">
+                            {% for un in ni.post_image.all() %}
+                            <li>
+                                <a href="/post/edit/{{un.post_id}}" class="a_link" target="_blank">{{un.title}}</a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <p>使用していません</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        {% if ni.post_image.all().count() == 0 %}
+                        <p class="link_button">
+                            <a href="/post/image/delete/{{ni.image_id}}">削除</a>
+                        </p>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
         {% if data.post_images %}
         {{ pager(data) }}
         {% if data.post_images %}
