@@ -3,27 +3,37 @@
 
 .header
 {
-    background: #18367d;
-    padding: 10px;
-    @include clearfix;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    overflow: scroll;
+
+    height: 50px;
+
+    position: relative;
 }
 .header_title
 {
     color: #fff;
     font-size: 12px;
-    float: left;
-    margin: 0 20px 0 0;
+    vertical-align: top;
+    width: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .header_menu
 {
-    float: left;
+    width: 100%;
+    white-space: nowrap;
+
+    padding: 17px 0 0 50px;
 
     li
     {
-        float: left;
+        display: inline-block;
         margin: 0 0 0 20px;
         font-size: 12px;
-        color: #fff;
+
         a
         {
             &:hover
@@ -294,5 +304,32 @@
         font-size: 14px;
         text-align: center;
         line-height: 1;
+    }
+}
+.contents_list
+{
+    li
+    {
+        list-style: none;
+        border-bottom: 1px solid #ddd;
+        margin: 0 0 10px 0;
+    }
+}
+.contents_title
+{
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px dotted #ddd;
+    font-size: 14px;
+    line-height: 1.8;
+}
+.contents_text
+{
+    padding: 10px;
+    p
+    {
+        font-size: 14px;
+        line-height: 1.8;
+        margin: 10px 0;
     }
 }

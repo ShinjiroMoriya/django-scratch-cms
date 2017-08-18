@@ -2,11 +2,12 @@ from django.conf.urls import url
 from .views import *
 from rest_framework import routers
 
-router = routers.DefaultRouter(trailing_slash=False)
+router = routers.SimpleRouter(trailing_slash=False)
 router.register(r'api/image', PostImageAPIView)
 router.register(r'api/pdf', PostPdfAPIView)
 
 urlpatterns = [
+    url(r'^$', PostTop.as_view()),
     url(r'post$', PostIndex.as_view()),
     url(r'post/page/(?P<page>[0-9]+)$', PostIndex.as_view()),
     url(r'post/create$', PostCreate.as_view()),

@@ -1,6 +1,7 @@
 import sys
 from datetime import datetime
 from rest_framework import viewsets, pagination
+from rest_framework.generics import GenericAPIView
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.http import JsonResponse
@@ -482,6 +483,15 @@ class Logout(View):
     def get(request):
         logout(request)
         return redirect('/login')
+
+
+class PostTop(GenericAPIView, PostSetup):
+    def get(self, request):
+        self.data.update({
+            'title': 'MeMo Post',
+            'post': Post.get_published(),
+        })
+        return render(request, 'top.html', {'data': self.data})
 
 
 class AppricationError(View):

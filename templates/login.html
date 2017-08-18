@@ -1,28 +1,39 @@
-{% extends "parts/layout.html" %}
-{% block style %}
-{% endblock %}
-{% block body %}
-<div class="login_container">
-    <form method="POST">
-        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        <input type="hidden" name="next" value="">
-        <table class="table">
-            <tr>
-                <th>ユーザー名</th>
-                <td>
-                    <input name="username" type="text" class="input_text" maxlength="254" required>
-                </td>
-            </tr>
-            <tr>
-                <th>パスワード</th>
-                <td>
-                    <input name="password" type="password" class="input_text" required>
-                </td>
-            </tr>
-        </table>
-        <input type="submit" value="ログイン" class="button_1">
-    </form>
-</div>
-{% endblock %}
-{% block javascript %}
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Login</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header_title">
+            <img src="/assets/img/icon.png" alt="">
+        </div>
+	</header>
+    <div class="login_container">
+        <form method="POST">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <input type="hidden" name="next" value="">
+            <table class="table">
+                <tr>
+                    <th>ユーザー名</th>
+                    <td>
+                        <input name="username" type="text" class="input_text" maxlength="254" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>パスワード</th>
+                    <td>
+                        <input name="password" type="password" class="input_text" required>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="ログイン" class="button_1">
+        </form>
+    </div>
+</body>
+</html>

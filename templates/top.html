@@ -2,7 +2,14 @@
 {% block style %}
 {% endblock %}
 {% block body %}
-hoge
+<ul class="contents_list">
+    {% for p in data.post %}
+    <li>
+        <p class="contents_title">{{ p.title }}</p>
+        <div class="contents_text">{{ p.contents|safe }}</div>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
 {% block javascript %}
 {% endblock %}
