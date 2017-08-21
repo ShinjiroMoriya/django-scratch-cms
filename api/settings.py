@@ -185,7 +185,7 @@ PASSWORD_HASHERS = (
 MAX_UPLOAD_SIZE = '5242880'
 # 5MB
 
-URL = os.environ.get('URL')
+URL = os.environ.get('URL', '')
 
 APPEND_SLASH = False
 
