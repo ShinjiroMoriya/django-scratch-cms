@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from app.urls import router as url_router
 from app.urls_login import router as url_login_router
 from decorator_include import decorator_include
 from django.conf import settings
@@ -26,11 +25,9 @@ from app.views import AppricationError
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include(url_router.urls)),
     url(r'', decorator_include([login_required], url_login_router.urls)),
-    url(r'^', decorator_include([login_required], 'app.urls_login')),
-    url(r'^', decorator_include([is_loginned], 'app.urls')),
-    url(r'^', include('app.urls')),
+    url(r'', decorator_include([login_required], 'app.urls_login')),
+    url(r'', decorator_include([is_loginned], 'app.urls')),
     url(r'^favicon.ico$', TemplateView.as_view(template_name='favicon.ico')),
 ]
 
