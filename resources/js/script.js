@@ -67,11 +67,21 @@ if ($('#tinymce_textarea').length != 0) {
             "advlist autolink lists link image charmap preview hr",
             "searchreplace wordcount visualblocks visualchars code fullscreen",
             "insertdatetime nonbreaking save table contextmenu directionality",
-            "paste textcolor colorpicker textpattern"
+            "paste textcolor colorpicker textpattern codesample"
+        ],
+        codesample_languages: [
+            {text: 'HTML/XML', value: 'markup'},
+            {text: 'JavaScript', value: 'javascript'},
+            {text: 'CSS', value: 'css'},
+            {text: 'PHP', value: 'php'},
+            {text: 'Ruby', value: 'ruby'},
+            {text: 'Python', value: 'python'},
+            {text: 'Bash', value: 'bash'}
         ],
         default_link_target: "_blank",
         language: "ja",
-        toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image forecolor backcolor",
+        toolbar1: "undo redo | bold italic | bullist numlist",
+        toolbar2: "link image forecolor backcolor codesample",
         link_title: false,
         link_list: '/api/pdf',
         image_list: '/api/image',

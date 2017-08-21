@@ -1,9 +1,11 @@
 {% extends "parts/layout.html" %}
 {% block style %}
+<link rel="stylesheet" href="/assets/lib/prism/prism.css">
 {% endblock %}
 {% block body %}
 <p class="contents_title">{{ data.post.title }}</p>
 <div class="contents_text">{{ data.post.contents|safe }}</div>
 {% endblock %}
 {% block javascript %}
+<script src="/assets/lib/prism/prism.js"></script>
 {% endblock %}

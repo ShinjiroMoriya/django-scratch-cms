@@ -26,7 +26,7 @@
     width: 100%;
     white-space: nowrap;
 
-    padding: 17px 0 0 50px;
+    padding: 17px 10px 0 50px;
 
     li
     {
@@ -46,7 +46,7 @@
 .page_title
 {
     font-size: 18px;
-    border-left: 4px solid #18367d;
+    border-left: 4px solid #337ab7;
     padding: 0 0 0 10px;
     margin: 0 0 20px;
 }
@@ -109,7 +109,8 @@
 {
     width: 100px;
 }
-.table_image
+.table_image,
+.table_image_title
 {
     width: 200px;
 }
@@ -255,12 +256,12 @@
         &.current
         {
             color: #fff;
-            background: #18367d;
+            background: #337ab7;
         }
         &:hover
         {
             color: #fff;
-            background: #18367d;
+            background: #337ab7;
         }
     }
 }
@@ -274,7 +275,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 99999;
+    z-index: 9999;
 }
 .list
 {
@@ -304,6 +305,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 9999;
 
     &._show
     {
@@ -362,6 +364,28 @@
         &:hover
         {
             text-decoration: underline;
+        }
+    }
+    ul
+    {
+        padding: 0 0 0 27px;
+        list-style: disc;
+
+        li
+        {
+            list-style: inherit;
+            margin: 0 0 10px 0;
+        }
+    }
+    ol
+    {
+        padding: 0 0 0 27px;
+        list-style: decimal;
+
+        li
+        {
+            list-style: inherit;
+            margin: 0 0 10px 0;
         }
     }
 }

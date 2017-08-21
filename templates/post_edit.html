@@ -30,12 +30,16 @@
                     </tr>
                 </table>
             </div>
+            {% if data.post.status == 'publish' %}
+            <input type="submit" value="保存する" class="button_1">
+            {% else %}
             <input type="submit" value="下書き保存する" class="button_1">
+            {% endif %}
         </form>
-        <from action="/post/delete/{{data.post.post_id}}" class="bottom_form">
+        <form method="POST" action="/post/delete/{{data.post.post_id}}" class="bottom_form">
             <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
             <input type="submit" value="削除する" class="button_2">
-        </from>
+        </form>
         <form id="image_upload" method="POST" enctype="multipart/form-data">
             <input name="image_file" type="file" class="upload" id="upload" accept="image/*">
         </form>
