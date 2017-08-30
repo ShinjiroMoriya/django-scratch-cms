@@ -105,7 +105,7 @@ def set_pdf_upload(file):
 
     _, ext = os.path.splitext(file.name)
 
-    if ext.lower() == 'pdf':
+    if ext.lower() != '.pdf':
         return 500, {'message': 'Ext'}
 
     upload_result = file_uploader(file)
