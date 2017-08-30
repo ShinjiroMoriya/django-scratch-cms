@@ -54,20 +54,98 @@ $('.status_select').on('change', function() {
         setTimeout(function() {
             $('.header_status_text').text('');
             $('.header_status').removeClass('_show _success _error');
-    	},1000);
+        },1000);
 
     });
 
 });
 
 if ($('#tinymce_textarea').length != 0) {
+    function onFileImage(event, callback) {
+        $('#image_upload').off('submit');
+        $('#image_upload').on('submit', function(e) {
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            var fd = new FormData();
+            $.each(event.target.files, function(i, file) {
+                fd.append('image_file', file);
+            });
+            $('#loading').show();
+            $.ajax({
+                type: 'POST',
+                url: '/image/add',
+                cache: false,
+                data: fd,
+                processData: false,
+                contentType: false
+            }).done(function(data) {
+                callback(data.image_url);
+
+            }).fail(function(data) {
+                $('.header_status_text').text(data.responseJSON.message);
+                $('.header_status').addClass('_show _error');
+
+            }).always(function(data) {
+                $('input[name="image_file"]').val('');
+                $('#loading').hide();
+                setTimeout(function() {
+                    $('.header_status_text').text('');
+                    $('.header_status').removeClass('_show _success _error');
+                }, 5000);
+
+            });
+        });
+        $('#image_upload').trigger('submit');
+    };
+
+    function onFilePdf(event, callback) {
+        $('#pdf_form').off('submit');
+        $('#pdf_form').on('submit', function(e) {
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            var fd = new FormData();
+            $.each(event.target.files, function(i, file) {
+                fd.append('pdf_file', file);
+            });
+            $('#loading').show();
+            $.ajax({
+                type: 'POST',
+                url: '/pdf/add',
+                cache: false,
+                data: fd,
+                processData: false,
+                contentType: false
+            }).done(function(data) {
+                callback(data.pdf_url, {text: data.title});
+
+            }).fail(function(data) {
+                $('.header_status_text').text(data.responseJSON.message);
+                $('.header_status').addClass('_show _error');
+
+            }).always(function(data) {
+                $('input[name="image_file"]').val('');
+                $('#loading').hide();
+                setTimeout(function() {
+                    $('.header_status_text').text('');
+                    $('.header_status').removeClass('_show _success _error');
+                }, 5000);
+
+            });
+        });
+        $('#pdf_form').trigger('submit');
+    };
+
     tinymce.init({
-        selector: "textarea",
+        selector: 'textarea',
         plugins: [
-            "advlist autolink lists link image charmap preview hr",
-            "searchreplace wordcount visualblocks visualchars code fullscreen",
-            "insertdatetime nonbreaking save table contextmenu directionality",
-            "paste textcolor colorpicker textpattern codesample"
+            'advlist autolink lists link image charmap preview hr',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime nonbreaking save table contextmenu directionality',
+            'paste textcolor colorpicker textpattern codesample'
         ],
         codesample_languages: [
             {text: 'HTML/XML', value: 'markup'},
@@ -85,72 +163,21 @@ if ($('#tinymce_textarea').length != 0) {
         link_title: false,
         link_list: '/api/pdf',
         image_list: '/api/image',
+        convert_urls: false,
         file_picker_callback: function(callback, value, meta) {
-            if (meta.filetype == 'file') {
-                $('#pdf_uploader').trigger('click');
-                $('#pdf_uploader').on('change', function() {
-                    var file = this.files[0];
-                    if ($("input[name='pdf_file']").val() == '') {
-                        return false
-                    }
-                    $('#loading').show();
-                    var fd = new FormData($('#pdf_form').get(0));
-                    fd.append('file', file);
-                    $.ajax({
-                        type: 'POST',
-                        url: '/pdf/add',
-                        cache: false,
-                        data: fd,
-                        processData: false,
-                        contentType: false
-                    }).done(function(data) {
-                        callback(data.pdf_url, {text: data.title})
-                    }).fail(function(data) {
-                        $('.header_status_text').text('通信エラー');
-                        $('.header_status').addClass('_show _error');
-
-                    }).always(function(data) {
-                        $('#loading').hide();
-                        setTimeout(function() {
-                            $('.header_status_text').text('');
-                            $('.header_status').removeClass('_show _success _error');
-                        },1000);
-
-                    });
+            if(meta.filetype =='image') {
+                $('#upload').off('change');
+                $('#upload').on('change', function(event) {
+                    onFileImage(event, callback);
                 });
-            }
-            if (meta.filetype == 'image') {
                 $('#upload').trigger('click');
-                $('#upload').on('change', function() {
-                    var file = this.files[0];
-                    if ($("input[name='image_file']").val() == '') {
-                        return false
-                    }
-                    $('#loading').show();
-                    var fd = new FormData($('#image_upload').get(0));
-                    fd.append('file', file);
-                    $.ajax({
-                        type: 'POST',
-                        url: '/image/add',
-                        cache: false,
-                        data: fd,
-                        processData: false,
-                        contentType: false
-                    }).done(function(data) {
-                        callback(data.image_url)
-                    }).fail(function(data) {
-                        $('.header_status_text').text('通信エラー');
-                        $('.header_status').addClass('_show _error');
-
-                    }).always(function(data) {
-                        $('#loading').hide();
-                        setTimeout(function() {
-                            $('.header_status_text').text('');
-                            $('.header_status').removeClass('_show _success _error');
-                        },1000);
-
-                    });
+            }
+            if(meta.filetype =='file') {
+                $('#pdf_uploader').off('change');
+                $('#pdf_uploader').on('change', function(event) {
+                    onFilePdf(event, callback);
                 });
+                $('#pdf_uploader').trigger('click');
             }
         }
     });
